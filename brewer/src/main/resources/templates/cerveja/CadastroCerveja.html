@@ -29,18 +29,18 @@
 			<div class="row">
 				<div class="col-sm-2  form-group">
 					<label for="sku">SKU</label>
-					<input id="sku" type="text" class="form-control"/>
+					<input id="sku" type="text" class="form-control" th:field="*{sku}"/>
 				</div>
 				
 				<div class="col-sm-10  form-group">
 					<label for="nome">Nome</label>
-					<input id="nome" type="text" class="form-control"/>
+					<input id="nome" type="text" class="form-control" th:field="*{nome}"/>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="descricao">Descrição</label>
-				<textarea id="descricao" rows="3" class="form-control"></textarea>
+				<textarea id="descricao" rows="3" class="form-control" th:field="*{descricao}"></textarea>
 			</div>
 
 			<div class="row">
@@ -62,7 +62,7 @@
 				
 				<div class="col-sm-3  form-group">
 					<label for="sabor">Sabor</label>
-					<select id="sabor" class="form-control">
+					<select id="sabor" class="form-control" th:field="*{sabor}">
 						<option value="">Selecione o sabor</option>
 						<option th:each="sabor : ${sabores}" th:text="${sabor.descricao}" th:value="${sabor}">Adocicada</option>
 					</select>
@@ -71,7 +71,7 @@
 				<div class="col-sm-3  form-group">
 					<label for="teorAlcoolico">Teor alcoólico</label>
 					<div class="input-group">
-						<input id="teorAlcoolico" type="text" class="form-control  js-decimal"/>
+						<input id="teorAlcoolico" type="text" th:field="*{teorAlcoolico}" class="form-control  js-decimal"/>
 						<div class="input-group-addon">%</div>
 					</div>
 				</div>
@@ -81,8 +81,8 @@
 					<div>
 					  <th:block th:each="origem : ${origens}">
 						<div class="radio  radio-inline">
-							<input th:id="|id_${origem}|" type="radio" name="origem"> 
-							<label th:for="|id_${origem}|" th:text="${origem.descricao}" th:value="${origem}"></label>
+							<input th:id="|id_${origem}|" type="radio" name="origem" th:field="*{origem}" th:value="${origem}"> 
+							<label th:for="|id_${origem}|" th:text="${origem.descricao}"></label>
 						</div>
 					</th:block>
 						
@@ -95,21 +95,21 @@
 					<label for="preco">Preço</label>
 					<div class="input-group">
 						<div class="input-group-addon">R$</div>
-						<input id="preco" type="text" class="form-control  js-decimal"/>
+						<input id="valor" type="text" th:field="*{valor}" class="form-control  js-decimal"/>
 					</div>
 				</div>
 				
 				<div class="col-sm-3  form-group">
 					<label for="comissao">Comissão</label>
 					<div class="input-group">
-						<input id="comissao" type="text" class="form-control  js-decimal"/>
+						<input id="comissao" type="text" th:field="*{comissao}" class="form-control  js-decimal"/>
 						<div class="input-group-addon">%</div>
 					</div>
 				</div>
 				
 				<div class="col-sm-3  form-group">
 					<label for="estoque">Estoque</label>
-					<input id="estoque" type="text" class="form-control  js-plain"/>
+					<input id="estoque" type="text" th:field="*{quantidadeEstoque}" class="form-control  js-plain"/>
 				</div>
 			</div>
 			
