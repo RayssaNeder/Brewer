@@ -49,7 +49,7 @@
 					<div class="bw-field-action">
 						<select id="estilo" class="form-control">
 							<option value="">Selecione o estilo</option>
-							<option value="1">Pale lager</option>
+							<option th:each="estilo : ${estilos}" th:value="${estilo.codigo}" th:text="${estilo.nome}">Pale lager</option>
 						</select>
 						
 						<div class="bw-field-action__icon">
@@ -64,7 +64,7 @@
 					<label for="sabor">Sabor</label>
 					<select id="sabor" class="form-control">
 						<option value="">Selecione o sabor</option>
-						<option value="1">Adocicada</option>
+						<option th:each="sabor : ${sabores}" th:text="${sabor.descricao}" th:value="${sabor}">Adocicada</option>
 					</select>
 				</div>
 				
@@ -79,14 +79,13 @@
 				<div class="col-lg-3  col-sm-6  form-group">
 					<label for="origem">Origem</label>
 					<div>
+					  <th:block th:each="origem : ${origens}">
 						<div class="radio  radio-inline">
-							<input type="radio" name="origem"> 
-							<label>Nacional</label>
+							<input th:id="|id_${origem}|" type="radio" name="origem"> 
+							<label th:for="|id_${origem}|" th:text="${origem.descricao}" th:value="${origem}"></label>
 						</div>
-						<div class="radio  radio-inline">
-							<input type="radio" name="origem"> 
-							<label>Internacional</label>
-						</div>
+					</th:block>
+						
 					</div>
 				</div>
 			</div>
