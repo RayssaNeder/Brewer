@@ -2,9 +2,11 @@ package com.algaworks.brewer.storage.local;
 
 import static java.nio.file.FileSystems.getDefault;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +31,30 @@ public class FotoStorageLocal implements FotoStorage {
 	}
 	
 	
+
+
+	@Override
+	public String salvarTemporariamente(MultipartFile[] files) {
+		String novoNome = null;
+		if((files != null) && (files.length > 0)) {
+			MultipartFile arquivo = files[0];
+		    novoNome = renomearArquivo(arquivo.getOriginalFilename());
+			try {
+				arquivo.transferTo(new File(this.localTemporario.toAbsolutePath().toString() + getDefault().getSeparator() + novoNome));
+			} catch (IOException e) {
+				throw new RuntimeException("Erro salvando foto na pasta temporára", e);
+			}
+			
+			return novoNome;
+					
+		}
+		
+		return novoNome;
+		
+	}
+	
+	
+	
 	private void criarPastas() {
 		try {
 			Files.createDirectories(this.local);
@@ -46,12 +72,15 @@ public class FotoStorageLocal implements FotoStorage {
 		}
 		
 	}
-
-
-	@Override
-	public void salvarTemporariamente(MultipartFile[] files) {
-		// TODO Auto-generated method stub
+	
+	private String renomearArquivo(String nomeOrignal) {
+		String novoNome = UUID.randomUUID().toString() + "_" + nomeOrignal;
 		
+		if(logger.isDebugEnabled()) {
+			logger.debug(String.format("Nome orignal: %s, novo nome do arquivo %s", nomeOrignal, novoNome));
+		}
+		
+		return novoNome;
 	}
 	
 	
