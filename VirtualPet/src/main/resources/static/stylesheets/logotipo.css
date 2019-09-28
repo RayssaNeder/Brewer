@@ -1,0 +1,151 @@
+
+body{
+	background-color: #f5f5f5;
+}
+
+.container{
+	margin: 10px;
+
+}
+
+.barra-de-nav{
+	background-color: #2c302b;
+
+}
+
+.navbar-header{
+	height: 100px;
+
+}
+
+
+.logotipo{
+	padding: 5px;
+	margin-right: 10px;
+}
+
+.logotipo img{
+	height: 90px;
+
+}
+
+.menu{
+	margin-top: 30px;
+	margin-right: 100px;
+	font-size: 20px;
+	
+}
+
+.menu a{
+	color: #fff;
+}
+
+.vt-espaco-top{
+	margin: 2%;
+}
+
+
+/** Ajuste da imagem dentro do carousel **/
+.image-wrap{
+  width:100%;
+  position:relative;
+  overflow:hidden;
+  height:240px;/* set arbitrary height*/
+}
+
+#carousel .image-wrap img.facilitiesImage {
+  width: auto;
+  height:240px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@supports (object-fit: cover){
+	#carousel .image-wrap img.facilitiesImage {
+	  width: 60%;
+	  height:240px;
+	  margin-left: auto;
+	  margin-right: auto;
+	  object-fit:cover;
+	}
+}
+
+/***************************************************/
+
+
+
+/** Painel vet **/
+
+.painel-vet{
+background-color: #d8bfd8;
+height: 270px;
+background-image:  url("../images/birthday.png");
+border: 2px solid purple;
+
+
+}
+
+
+.banner-vet{
+	width: 200px;	
+	padding: 50px 5px;
+	font-size: 30px;
+	color: purple;
+	
+}
+
+.banner-vet button{
+	margin-top: 20px;
+	}
+
+.img-vet{
+	margin: 10px;
+
+}
+/**/
+
+
+
+/** sessão 2 **/
+
+.conf-cont{
+	margin: 100px;
+}
+
+.tam-img-s2{
+	 width: 30%;
+    margin: 5px;
+}
+
+
+.quadrado-ss-2{	
+	background-color: #fff;
+	margin:  50px;
+	 box-shadow: 10px 10px 5px grey;
+	 height: 380px;
+	 padding-bottom: 15px;
+}
+
+
+.quadrado-ss-3{	
+	background-color: #fff;
+	margin:  50px;
+	 box-shadow: 10px 10px 5px grey;
+	 height: 380px;
+	 width: 90%;
+	 padding-bottom: 15px;
+}
+
+.bw-titulo h1{
+
+	color: #FBAB1B;
+}
+
+
+/** rodapé **/
+
+.footer{
+	background-color: #2c302b;
+}
+
+

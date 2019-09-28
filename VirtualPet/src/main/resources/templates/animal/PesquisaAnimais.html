@@ -1,22 +1,16 @@
 <!DOCTYPE HTML>
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
-<head>
-	<title>Pesquisa de Animais</title>
-</head>
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/LayoutPadrao'">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>minha página</title>
-
-	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendor/bootstrap.min.css}">
-  	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/logotipo.css}">
+	<title>Pesquisa de Animais</title>
+	
   	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/animal.css}">
-  	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -32,164 +26,70 @@
 
 
 	<!-- Side navigation -->
-<div class="sidenav">
-	<h1><img class="virtuShop-logo" th:src="@{/images/petshop.png}"></h1>
-  <a href="#"><span class="fa fa-pie-chart">Painel</span></a>
-  <a href="#"><span class="fa fa-user">Clientes</span></a>
-  <a href="#"><span class="fa fa-paw">Animais</span></a>
-  <a href="#"><span class="fa fa-shopping-cart">Vendas</span></a>
-  <a href="#"><span class="fa fa-truck">Estoque</span></a>
-  <a href="#"><span class="fa fa-file-pdf-o">Relatórios</span></a>
-   <a href="index.html"><span class="fa fa-power-off">Sair</span></a>
- 
-</div>
-
-
-<div class="wrapper">
-	<nav class="navbar nav-bar-static-top navegacao-sup">
-		<div class="container-fluid">
-
-
-		<div class="navbar-header">
-      			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>                        
-      			</button>
-
-				
-			</div>
-
-
-		<div class="nav-sup-h2 pull-left">		
-		<h2><span class="fa fa-paw">VirtuPet</span></h2>
-		</div>						
+<section layout:fragment="conteudo">
 		
-		
-		 <div class="collapse navbar-collapse" id="menu">
-			<ul class="nav navbar-nav navbar-right">
-				<li>
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						Minha Conta
-						<span class="caret"></span>
-					</a>
-					<div class="dropdown-menu perfil">
-
-						<div class="col-sm-4 ">
-							<img class="img-responsive img-rounded" src="https://api.adorable.io/avatars/100/abott@adorable.png">
-						</div>
-
-						<ul class="list-unstyled col-sm-8">
-							<li>Fulano de Tal</li>
-							<li><a href="#">Alterar Perfil</a></li>
-							<li><a href="#">Sair</a></li>
-						</ul>
+	
+			<!-- Page content -->
+			<div class="main">
+			  
+				<div class="">
+					<h3><span class="fa fa-paw">Animais</span></h3>
+	
+					<div class="container-fluid dados-animais">
 						
+						<form method="GET" class="form-inline" th:object="${animalFilter}">
+							<div class="form-group" >
+								<label class="control-label" for="nome">Nome</label>
+								<input type="text" class="form-control" id="nome" th:field="*{nome}"/>
+							</div>
+							<button type="submit" class="btn  btn-primary">Pesquisar</button>
+							<a class="btn btn-success pull-right" th:href="@{/animais/novo}">
+									<i class="glyphicon  glyphicon-plus-sign"></i> <span class="hidden-xs  hidden-sm">Novo animal</span>
+								</a>
+						</form>
 						
 					</div>
-				</li>
-				
-			</ul>
-		</div>
-		</div>	
 	
-	</nav>
-
-
-
-		<!-- Page content -->
-		<div class="main">
-		  
-			<div class="">
-				<h3><span class="fa fa-paw">Animais</span></h3>
-
-				<div class="container-fluid dados-animais">
+					<h3><span class="fa fa-paw">Cadastrados - Foi(ram) encontrado(s) 4 registro(os)</span></h3>
+	
+					<div class="dados-animais">
 					
-					<div class="form-group">
-		       			<div class="input-group">
-		          			<label>Pesquisa</label>
-		         			 <input type="text" name="senha" class="form-control" placeholder="Raça">
-		        		</div>
-		     		 </div>
-					
-					 <button type="submit" class="btn btn-success fa fa-plus pull-right">Novo Animal</button>
-					
+	
+						     <table class="table table-striped table-bordered table-hover">
+						     	<thead>
+						     		<tr>
+						     			<th>Nome</th>
+						     			<th>Espécie</th>
+						     			<th>Raça</th>
+						     			<th>Sexo</th>
+						     			<th>Pelagem</th>
+						     			<th>Porte</th>
+						     			
+						     			<th></th>
+						     		</tr>
+						     	</thead>
+						     	<tbody>
+						     		<tr th:each="animal: ${pagina.content}">
+						     			<td class="text-center" th:text="${animal.nome}">Nome</td>
+						     			<td th:text="${animal.especie.nome}">Canino</td>
+						     			<td th:text="${animal.raca.nome}">Raça</td>
+						     			<td th:text="${animal.sexo}">sexo</td>
+						     			<td th:text="${animal.pelagem}">Canino</td>
+						     			<td th:text="${animal.porte}">Porte</td>
+						     			<td class="text-center">
+						     				<a href=""><span class="glyphicon glyphicon-pencil text-warning"></span></a>
+						     				<a href=""><span class="glyphicon glyphicon-trash text-danger"></span></a>
+						     			</td>
+						     		</tr>
+						 
+						     	</tbody>
+						     </table>
+				   	</div>  
 				</div>
-
-				<h3><span class="fa fa-paw">Cadastrados - Foi(ram) encontrado(s) 4 registro(os)</span></h3>
-
-				<div class="dados-animais">
-
-					     <table class="table table-striped table-bordered table-hover">
-					     	<thead>
-					     		<tr>
-					     			<th>Nome</th>
-					     			<th>Espécie</th>
-					     			<th>Raça</th>
-					     			<th>Sexo</th>
-					     			<th>Dono</th>
-					     			<th></th>
-					     		</tr>
-					     	</thead>
-					     	<tbody>
-					     		<tr>
-					     			<td>Vicky</td>
-					     			<td>Canino</td>
-					     			<td>YorkShire Terrier</td>
-					     			<td>Feminino</td>
-					     			<td>Rayssa Glaucia Neder</td>
-					     			<td class="text-center">
-					     				<a href=""><span class="glyphicon glyphicon-pencil text-warning"></span></a>
-					     				<a href=""><span class="glyphicon glyphicon-trash text-danger"></span></a>
-					     			</td>
-					     		</tr>
-
-					     		<tr>
-					     			<td>Mily</td>
-					     			<td>Canino</td>
-					     			<td>Pug</td>
-					     			<td>Feminino</td>
-					     			<td>Eric Cabral Neder</td>
-					     			<td class="text-center">
-					     				<a href=""><span class="glyphicon glyphicon-pencil text-warning"></span></a>
-					     				<a href=""><span class="glyphicon glyphicon-trash text-danger"></span></a>
-					     			</td>
-					     		</tr>
-
-					     		<tr>
-					     			<td>Mococca</td>
-					     			<td>Canino</td>
-					     			<td>SRD</td>
-					     			<td>Feminino</td>
-					     			<td>Eric Cabral Neder</td>
-					     			<td class="text-center">
-					     				<a href=""><span class="glyphicon glyphicon-pencil text-warning"></span></a>
-					     				<a href=""><span class="glyphicon glyphicon-trash text-danger"></span></a>
-					     			</td>
-					     		</tr>
-
-					     		<tr>
-					     			<td>Truffi</td>
-					     			<td>Felino</td>
-					     			<td>SRD</td>
-					     			<td>Feminino</td>
-					     			<td>Eric Cabral Neder</td>
-					     			<td class="text-center">
-					     				<a href=""><span class="glyphicon glyphicon-pencil text-warning"></span></a>
-					     				<a href=""><span class="glyphicon glyphicon-trash text-danger"></span></a>
-					     			</td>
-					     		</tr>
-
-					     	</tbody>
-					     </table>
-			   	</div>  
 			</div>
-		</div>
-	</div>
-				
+		
+</section>				
 
-	<script th:src="@{/javascripts/jquery-2.2.4.min.js}"></script>
-	<script th:src="@{/javascripts/bootstrap.min.js}"></script>
 </body> 
 
 </html> 

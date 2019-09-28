@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<meta charset="UTF-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+	<title>VirtuPet</title>
+
+	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendor/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/logotipo.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/virtupet.css}"/>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	
+	<link rel="shortcut icon" th:href="@{/images/favicon.png}"/>
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+	<div class="aw-layout-page">
+	
+		<div class="wrapper">
+		
+		<div th:replace="layout/fragments/BarraLateral :: layout-sidebar"></div>
+		
+		<div th:replace="layout/fragments/MenuSuperior :: menu-superior"></div>
+		
+		<section class="aw-layout-content  js-content" layout:fragment="conteudo"></section>
+		
+		<div th:replace="layout/fragments/Footer :: layout-footer"></div>
+		
+		</div>
+		
+	</div>
+
+
+<script th:src="@{/javascripts/jquery-2.2.4.min.js}"></script>
+<script th:src="@{/javascripts/bootstrap.min.js}"></script>
+<th:block layout:fragment="javascript-extra"></th:block>
+</body>
+
+</html>

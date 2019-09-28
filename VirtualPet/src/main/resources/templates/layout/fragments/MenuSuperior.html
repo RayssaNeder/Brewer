@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+	<nav class="navbar nav-bar-static-top navegacao-sup" th:fragment="menu-superior">
+			<div class="container-fluid">
+	
+	
+			<div class="navbar-header">
+	      			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>                        
+	      			</button>
+	
+					
+				</div>
+	
+	
+			<div class="nav-sup-h2 pull-left">		
+			<h2><span class="fa fa-paw">VirtuPet</span></h2>
+			</div>						
+			
+			
+			 <div class="collapse navbar-collapse barra-sup-tam" id="menu">
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							Minha Conta
+							<span class="caret"></span>
+						</a>
+						<div class="dropdown-menu perfil">
+	
+							<div class="col-sm-4 ">
+								<img class="img-responsive img-rounded" src="https://api.adorable.io/avatars/100/abott@adorable.png">
+							</div>
+	
+							<ul class="list-unstyled col-sm-8">
+								<li>Fulano de Tal</li>
+								<li><a href="#">Alterar Perfil</a></li>
+								<li><a href="#">Sair</a></li>
+							</ul>
+							
+							
+						</div>
+					</li>
+					
+				</ul>
+			</div>
+			</div>	
+		
+		</nav>
+		
+</body>
+</html>

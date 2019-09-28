@@ -16,15 +16,17 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import br.com.virtualPet.modelo.Animal;
+import br.com.virtualPet.repository.Animais;
 
 @Configuration
-@EnableJpaRepositories(basePackageClasses = Animal.class, enableDefaultTransactions = false)
+@EnableJpaRepositories(basePackageClasses = Animais.class, enableDefaultTransactions = false)
 @EnableTransactionManagement
 public class JPAConfig {
 	
 	@Bean
 	public DataSource dataSource() {
 		JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
+		dataSourceLookup.setResourceRef(true);
 		return dataSourceLookup.getDataSource("jdbc/virtuPetDB");
 	}
 	
@@ -52,7 +54,7 @@ public class JPAConfig {
 	public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
 		transactionManager.setEntityManagerFactory(entityManagerFactory);
-		return transactionManager(entityManagerFactory);
+		return transactionManager;
 	}
 
 }

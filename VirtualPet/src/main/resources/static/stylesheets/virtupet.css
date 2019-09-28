@@ -1,0 +1,79 @@
+.page-header {
+  padding-bottom: 0px;
+  background-color: #fafbfd;
+}
+.page-header h1 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0;
+  height: 80px;
+  color: #333333;
+}
+.vp-page-header-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 80px;
+}
+
+.vp-layout-footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 50px;
+  margin: 0;
+  border-top: 1px solid #eeeeee;
+  transition: all 0.5s;
+}
+
+/*-----------------------------------------------------------*\
+  Error panel
+  - Para ser usado em páginas de erro simpls (404, 500, etc)
+\*-----------------------------------------------------------*/
+
+/*-------------------------------------------------*\
+  Footer disclaimer
+  - Para usar na informação de copyright no rodapé
+\*-------------------------------------------------*/
+.vp-footer-disclaimer {
+  font-size: 92%;
+  display: block;
+  color: #777777;
+  line-height: 4;
+  text-align: center;
+}
+/*-------------------------------------------------*\
+  Logged user
+  - Imagem e nome do usuário logado
+    (normalmente usado em dropdown menu na navbar)
+\*-------------------------------------------------*/
+
+/*
+######################
+# COMPONENTES
+######################
+*/
+
+
+/* Field Action */
+.vp-field-action {
+	display: flex;
+}
+
+.vp-field-action__icon {
+	margin: 6px 0 0 5px;
+}
+
+/*
+######################
+# UTILIDADES
+######################
+*/
+.vp-glyphicon-large {
+	font-size: 18px;
+}
+
+
+

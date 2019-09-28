@@ -1,0 +1,24 @@
+body{
+	min-height:100vh;
+	background-color: #ccc;
+	background-image:  url("../images/vet-capa.jpg");
+}
+
+.login-form{
+	margin-top: 50vh;
+	padding: 20px 120px;
+	background-color: rgba(44,48,43, .7);
+	color: #FFF;
+	transform: translateY(-50%);
+}
+
+.login-form h1{
+	/** zera todas as margens menos a de baixo **/
+	margin: 0 0 50px;
+}
+
+.login-form h2{
+	margin: 0 0 15px;
+	font-size: 1.3em;
+	color: #697066;
+}
