@@ -1,13 +1,17 @@
 package com.algaworks.brewer.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.algaworks.brewer.controller.page.PageWrapper;
 import com.algaworks.brewer.model.Estilo;
+import com.algaworks.brewer.repository.Estilos;
+import com.algaworks.brewer.repository.filter.EstiloFilter;
 import com.algaworks.brewer.service.CadastroEstiloService;
 import com.algaworks.brewer.service.exception.NomeJaCadastradoException;
 
@@ -26,6 +33,9 @@ public class EstilosController {
 	
 	@Autowired
 	private CadastroEstiloService cadastroEstiloService;
+	
+	@Autowired
+	private Estilos estilos;
 
 	@RequestMapping("/novo")
 	public ModelAndView novo(Estilo estilo) {
@@ -62,6 +72,16 @@ public class EstilosController {
 		}		
 		estilo = cadastroEstiloService.salvar(estilo);
 		return ResponseEntity.ok(estilo);
+	}
+	
+	@GetMapping
+	public ModelAndView pesquisar(EstiloFilter estiloFilter, @PageableDefault(size = 10) Pageable pageable, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("estilo/PesquisaEstilos");
+		mv.addObject("estilos", estilos.findAll());
+		
+		PageWrapper<Estilo> paginaWraper = new PageWrapper<>(estilos.filtrar(estiloFilter, pageable), request);
+		mv.addObject("pagina", paginaWraper);
+		return mv;
 	}
 	
 }
