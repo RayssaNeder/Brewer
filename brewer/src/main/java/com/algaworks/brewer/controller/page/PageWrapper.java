@@ -17,7 +17,9 @@ public class PageWrapper<T> {
 
 	public PageWrapper(Page<T> page, HttpServletRequest httpServletRequest) {
 		this.page = page;
-		this.urlBuilder = ServletUriComponentsBuilder.fromRequest(httpServletRequest);
+		//this.urlBuilder = ServletUriComponentsBuilder.fromRequest(httpServletRequest);
+		String httpUrl = httpServletRequest.getRequestURL().append(httpServletRequest.getQueryString() != null ? "?" + httpServletRequest.getQueryString() : "").toString().replaceAll("\\+", "%20");
+		this.urlBuilder = UriComponentsBuilder.fromHttpUrl(httpUrl);
 	}
 	
 	
