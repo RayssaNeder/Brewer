@@ -38,7 +38,7 @@
 		<thymeleaf-layout-dialect.version>2.0.0</thymeleaf-layout-dialect.version>
 		
 		<!-- Spring Data JPA -->
-		<spring-data-jpa.version>1.10.2.RELEASE</spring-data-jpa.version>
+		<spring-data-jpa.version>1.11.23.RELEASE</spring-data-jpa.version>
 		
 		
 		<!-- JPA / Hibernate -->
