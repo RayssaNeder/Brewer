@@ -1,33 +1,31 @@
 var Brewer = Brewer || {};
 
-Brewer.MaskCpfCnpj = (function(){
-	function MaskCpfCnpj(){
-		
+Brewer.MascaraCpfCnpj = (function() {
+	
+	function MascaraCpfCnpj() {
 		this.radioTipoPessoa = $('.js-radio-tipo-pessoa');
-		this.labelcpfOuCnpj = $('[for=cpfOuCnpj]');
+		this.labelCpfCnpj = $('[for=cpfOuCnpj]');
 		this.inputCpfCnpj = $('#cpfOuCnpj');
 	}
 	
-	MaskCpfCnpj.prototype.iniciar = function(){
-		this.radioTipoPessoa.on('change', onTipoAlterado.bind(this));
+	MascaraCpfCnpj.prototype.iniciar = function() {
+		this.radioTipoPessoa.on('change', onTipoPessoaAlterado.bind(this));
 	}
 	
-	
-	function onTipoAlterado(event){
-		var tipoPessoaSelecionada  = $(event.currentTarget);
-		this.labelcpfOuCnpj.text(tipoPessoaSelecionada.data('documento'));
+	function onTipoPessoaAlterado(evento) {
+		var tipoPessoaSelecionada = $(evento.currentTarget);
+		
+		this.labelCpfCnpj.text(tipoPessoaSelecionada.data('documento'));
 		this.inputCpfCnpj.mask(tipoPessoaSelecionada.data('mascara'));
 		this.inputCpfCnpj.val('');
 		this.inputCpfCnpj.removeAttr('disabled');
 	}
 	
-		
-		return MaskCpfCnpj;
+	return MascaraCpfCnpj;
+	
 }());
 
-
-$(function(){
-	var maskCpfCnpj = new Brewer.MaskCpfCnpj();
-	maskCpfCnpj.iniciar();
-	
+$(function() {
+	var mascaraCpfCnpj = new Brewer.MascaraCpfCnpj();
+	mascaraCpfCnpj.iniciar();
 });
