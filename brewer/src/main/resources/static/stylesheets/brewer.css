@@ -118,7 +118,33 @@
 }
 
 
+/* Colunas - Pesquisa de Clientes */
 
+
+.table-clientes-col-nome{
+	
+}
+
+.table-clientes-col-tpPessoa{
+	width: 150px;
+	
+	
+}
+
+.table-clientes-col-cpfCnpj{
+	width: 150px;
+	
+	
+}
+
+.table-clientes-col-telefone{
+	width: 150px;
+	
+}
+
+.table-clientes-col-acoes{
+	width: 80px;
+}
     
     
     

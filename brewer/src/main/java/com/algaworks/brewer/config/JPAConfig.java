@@ -17,6 +17,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.algaworks.brewer.model.Cerveja;
+import com.algaworks.brewer.model.Cliente;
 import com.algaworks.brewer.repository.Cervejas;
 
 @Configuration
