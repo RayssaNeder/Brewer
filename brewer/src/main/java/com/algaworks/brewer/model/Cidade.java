@@ -1,6 +1,7 @@
 package com.algaworks.brewer.model;
 
 import java.io.Serializable;
+import java.text.Normalizer;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PostLoad;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -33,6 +36,11 @@ public class Cidade implements Serializable {
 	@JoinColumn(name = "codigo_estado ")
 	@JsonIgnore
 	private Estado estado;
+	
+	
+	public String getNomeSemAcento() {
+		return Normalizer.normalize(this.nome, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+	}
 	
 	public Long getCodigo() {
 		return codigo;
