@@ -2,13 +2,17 @@ package com.algaworks.brewer.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,9 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.algaworks.brewer.controller.page.PageWrapper;
 import com.algaworks.brewer.model.Cidade;
 import com.algaworks.brewer.repository.Cidades;
 import com.algaworks.brewer.repository.Estados;
+import com.algaworks.brewer.repository.filter.CidadeFilter;
 import com.algaworks.brewer.service.CadastroCidadeService;
 import com.algaworks.brewer.service.exception.NomeJaCadastradoException;
 
@@ -67,8 +73,16 @@ public class CidadesController {
 	}
 	
 	
-	public String pequisar() {
-		return "cidade/CadastroCidade";
+	
+	
+	@GetMapping
+	public ModelAndView pesquisar(CidadeFilter cidadeFilter,  @PageableDefault(size = 10) Pageable pageable, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("cidade/PesquisaCidade");
+		mv.addObject("estados", estados.findAll());
+		
+		PageWrapper<Cidade> paginaWraper = new PageWrapper<>(cidades.filtrar(cidadeFilter, pageable), request );
+		mv.addObject("pagina", paginaWraper);
+		return mv;
 	}
 	
 }
