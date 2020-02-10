@@ -35,7 +35,7 @@ public class Usuario implements Serializable {
 	@Email(message = "Email inválido")
 	private String email;
 	private String senha;
-	@NotNull(message = "Data de nascimento é obrigatório")
+	//@NotNull(message = "Data de nascimento é obrigatório")
 	@Column(name = "data_nascimento")
 	private LocalDate dataNascimento;
 	private boolean ativo;
