@@ -50,6 +50,23 @@ Brewer.MaskCEPNumber = (function(){
 	return MaskCEPNumber;
 }());
 
+Brewer.MaskDate = (function(){
+	function MaskDate(){
+		this.inputMaskDate = $('.js-mask-date');
+	}
+	
+	MaskDate.prototype.enable = function(){			
+			this.inputMaskDate.mask('00/00/0000');
+			this.inputMaskDate.datepicker({
+				orientation: 'bottom',
+				language:'pt-BR',
+				autoclose:true
+			});
+			
+	}
+	return  MaskDate;
+}());
+
 
 $(function() {
 	var maskMoney = new Brewer.MaskMoney();
@@ -60,5 +77,8 @@ $(function() {
 	
 	var maskCEPNumber = new Brewer.MaskCEPNumber();
 	maskCEPNumber.enable();
+	
+	var maskDater = new Brewer.MaskDate();
+	maskDater.enable();
 	
 });
