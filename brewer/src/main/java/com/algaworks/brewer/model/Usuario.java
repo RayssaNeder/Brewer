@@ -22,7 +22,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.algaworks.brewer.validation.AtributoConfirmacao;
 @AtributoConfirmacao(atributo = "senha", atributoConfirmacao = "confirmacaoSenha", message = "Confirmação da senha não confere" )
 @Entity
-@Table(name = "uauario")
+@Table(name = "usuario")
 public class Usuario implements Serializable {
 	
 	/**
@@ -45,7 +45,7 @@ public class Usuario implements Serializable {
 	@Column(name = "data_nascimento")
 	private LocalDate dataNascimento;
 	private boolean ativo;
-	@NotNull(message = "Selecione pelo menos 1 grupo")
+	//@NotNull(message = "Selecione pelo menos 1 grupo")
 	@ManyToMany
 	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "codigo_usuario"), inverseJoinColumns = @JoinColumn(name = "codigo_grupo"))
 	private List<Grupo> grupo;
