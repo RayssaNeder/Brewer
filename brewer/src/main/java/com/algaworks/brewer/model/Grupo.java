@@ -28,10 +28,10 @@ public class Grupo implements Serializable {
 	private Long codigo;
 	@NotBlank(message = "Nome do grupo é obrigatório")
 	private String nome;
-	@ManyToMany
+	/*@ManyToMany
 	@NotNull(message = "Selecione pelo menos 1 grupo")
 	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "codigo_grupo"), inverseJoinColumns = @JoinColumn(name = "codigo_usuario"))
-	private List<Usuario> usuarios;
+	private List<Usuario> usuarios;*/
 	@ManyToMany
 	@JoinTable(name = "grupo_permissao", joinColumns = @JoinColumn(name = "codigo_grupo"), inverseJoinColumns = @JoinColumn(name = "codigo_permissao"))
 	private List<Permissao> permissoes;
@@ -47,12 +47,12 @@ public class Grupo implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public List<Usuario> getUsuarios() {
+	/*public List<Usuario> getUsuarios() {
 		return usuarios;
 	}
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
-	}
+	}*/
 	public List<Permissao> getPermissoes() {
 		return permissoes;
 	}

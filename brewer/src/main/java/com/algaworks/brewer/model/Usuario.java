@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -41,14 +42,14 @@ public class Usuario implements Serializable {
 	
 	@Transient
 	private String confirmacaoSenha;
-	//@NotNull(message = "Data de nascimento é obrigatório")
+	@NotNull(message = "Data de nascimento é obrigatório")
 	@Column(name = "data_nascimento")
 	private LocalDate dataNascimento;
 	private boolean ativo;
-	//@NotNull(message = "Selecione pelo menos 1 grupo")
+	@Size(min = 1, message = "Selecione pelo menos 1 grupo")
 	@ManyToMany
 	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "codigo_usuario"), inverseJoinColumns = @JoinColumn(name = "codigo_grupo"))
-	private List<Grupo> grupo;
+	private List<Grupo> grupos;
 	
 	
 	
@@ -98,11 +99,14 @@ public class Usuario implements Serializable {
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
-	public List<Grupo> getGrupo() {
-		return grupo;
+	
+	
+	
+	public List<Grupo> getGrupos() {
+		return grupos;
 	}
-	public void setGrupo(List<Grupo> grupo) {
-		this.grupo = grupo;
+	public void setGrupos(List<Grupo> grupos) {
+		this.grupos = grupos;
 	}
 	@Override
 	public int hashCode() {

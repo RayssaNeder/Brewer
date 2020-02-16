@@ -10,6 +10,6 @@ import com.algaworks.brewer.model.Usuario;
 @Repository
 public interface Usuarios extends JpaRepository <Usuario, Long> {
 
-	Optional<Usuario> findByEmailIgnoreCase(String email);
+	public Optional<Usuario> findByEmailIgnoreCase(String email);
 
 }

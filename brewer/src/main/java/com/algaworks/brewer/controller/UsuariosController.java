@@ -15,6 +15,7 @@ import com.algaworks.brewer.model.Origem;
 import com.algaworks.brewer.model.Sabor;
 import com.algaworks.brewer.model.Usuario;
 import com.algaworks.brewer.repository.Estilos;
+import com.algaworks.brewer.repository.Grupos;
 import com.algaworks.brewer.repository.Usuarios;
 import com.algaworks.brewer.service.CadastroUsuarioService;
 import com.algaworks.brewer.service.exception.NomeJaCadastradoException;
@@ -25,6 +26,9 @@ public class UsuariosController {
 	
 	@Autowired
 	private Usuarios usuarios;
+	
+	@Autowired
+	private Grupos grupos;
 
 	@Autowired
 	private CadastroUsuarioService cadastroUsuarioService;
@@ -33,7 +37,7 @@ public class UsuariosController {
 	public ModelAndView novo(Usuario usuario) {
 		ModelAndView mv = new ModelAndView("usuario/CadastroUsuario");
 				
-		//mv.addObject("usuarios", usuarios.findAll());
+		mv.addObject("grupos", grupos.findAll());
 		
 		return mv;
 	}

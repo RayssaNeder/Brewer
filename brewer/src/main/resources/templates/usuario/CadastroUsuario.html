@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:th="http://www.thymeleaf.org"
-	layout:decorator="'layout/LayoutPadrao'"
+	layout:decorate="layout/LayoutPadrao"
 	xmlns:brewer="http://brewer.algaworks.com">
 
 <head>
@@ -72,14 +72,12 @@
 				<div class="form-group  col-sm-6" brewer:classforerror="nome">
 					<label class="control-label">Grupos</label> 
 					<div>
-  						<div class="checkbox  checkbox-inline"> 
-	    					<input type="checkbox" />
-	    					<label class="control-label">Administrador</label>
-    					</div>
-    					<div class="checkbox  checkbox-inline"> 
-	    					<input type="checkbox" />
-	    					<label class="control-label">Vendedor</label>
-    					</div>
+						<th:block th:each="grupo : ${grupos}">
+	  						<div class="checkbox  checkbox-inline"> 
+		    					<input type="checkbox" th:field="*{grupos}" th:value="${grupo.codigo}"/>
+		    					<label th:for="${#ids.prev('grupos')}" th:text="${grupo.nome}" class="control-label">Administrador</label>
+	    					</div>
+    					</th:block>
 					</div>
 				</div>
 			</div>

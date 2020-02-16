@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.algaworks.brewer.model.Usuario;
+import com.algaworks.brewer.repository.Grupos;
 import com.algaworks.brewer.repository.Usuarios;
 import com.algaworks.brewer.service.exception.NomeJaCadastradoException;
 
@@ -15,6 +16,7 @@ public class CadastroUsuarioService {
 	
 	@Autowired
 	private Usuarios usuarios;
+	
 
 	@Transactional
 	public void salvar(Usuario usuario) {
@@ -22,7 +24,7 @@ public class CadastroUsuarioService {
 		if(usuarioOptional.isPresent()) {
 			throw new NomeJaCadastradoException("email já cadastrado para outro usuario");
 		}
-		usuarios.saveAndFlush(usuario);
+		usuarios.save(usuario);
 		
 	}
 
