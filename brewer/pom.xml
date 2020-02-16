@@ -75,6 +75,9 @@
 		<!-- Apache Bean Utils -->
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 		
+		<!-- Spring Security -->
+		<spring-security.version>4.1.1.RELEASE</spring-security.version>
+		
 		
 	</properties>
 	
@@ -268,6 +271,20 @@
     		<artifactId>commons-beanutils</artifactId>
     		<version>${commons-beanutils.version}</version>
     		<scope>compile</scope>
+		</dependency>
+		
+		<!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring-security.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring-security.version}</version>
+			<scope>compile</scope>
 		</dependency>
 		
 		
