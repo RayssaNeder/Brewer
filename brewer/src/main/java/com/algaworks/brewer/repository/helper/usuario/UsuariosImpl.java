@@ -6,14 +6,31 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
+import com.algaworks.brewer.model.Cerveja;
 import com.algaworks.brewer.model.Usuario;
+import com.algaworks.brewer.repository.filter.CervejaFilter;
+import com.algaworks.brewer.repository.filter.CidadeFilter;
+import com.algaworks.brewer.repository.filter.UsuarioFilter;
+import com.algaworks.brewer.repository.paginacao.PaginacaoUtil;
 
 public class UsuariosImpl implements UsuariosQueries {
 	
 	@PersistenceContext
 	private EntityManager manager;
+	
+	@Autowired
+	private PaginacaoUtil paginacaoUtil;
 
 	@Override
 	public Optional<Usuario> porEmailEAtivo(String email) {
@@ -27,5 +44,38 @@ public class UsuariosImpl implements UsuariosQueries {
 		.setParameter("usuario", usuario)
 		.getResultList();
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Usuario> filtrar(UsuarioFilter usuarioFilter, Pageable pageable) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Usuario.class);
+		paginacaoUtil.preparar(criteria, pageable);
+		
+		adicionarFiltro(usuarioFilter, criteria);
+		return new PageImpl<>(criteria.list(), pageable, total(usuarioFilter));
+	}
+	
+	private Long total(UsuarioFilter usuarioFilter) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Usuario.class);
+		adicionarFiltro(usuarioFilter, criteria);
+		criteria.setProjection(Projections.rowCount());
+		return (Long) criteria.uniqueResult();
+	}
+	
+	
+	private void adicionarFiltro(UsuarioFilter usuarioFilter, Criteria criteria) {
+		if(usuarioFilter != null) {
+			
+			if(!StringUtils.isEmpty(usuarioFilter.getNome())) {
+				criteria.add(Restrictions.ilike("nome", usuarioFilter.getNome()));
+			}
+			if(!StringUtils.isEmpty(usuarioFilter.getEmail())) {
+				criteria.add(Restrictions.eq("email", usuarioFilter.getEmail()));
+			}
+		}
+		
+	}
+	
 
 }

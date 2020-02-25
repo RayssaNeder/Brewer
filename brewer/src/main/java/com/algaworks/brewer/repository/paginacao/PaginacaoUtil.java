@@ -17,7 +17,7 @@ public class PaginacaoUtil {
 		criteria.setMaxResults(totalRegistroPorPagina);
 		
 		Sort sort = pageable.getSort();
-		System.out.println(">> sort " + sort);
+		//System.out.println(">> sort " + sort);
 		if(sort != null) {
 			Sort.Order order = sort.iterator().next();
 			String field = order.getProperty();
