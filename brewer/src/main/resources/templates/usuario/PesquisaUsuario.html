@@ -50,17 +50,12 @@
 				<div class="form-group  col-sm-6" brewer:classforerror="nome">
 					<label class="control-label">Grupos</label> 
 					<div>
-						
+						<th:block th:each="grupo : ${grupos}">
 	  						<div class="checkbox  checkbox-inline"> 
-		    					<input type="checkbox" name="grupo"/>
-		    					<label>Vendedor</label>
+		    					<input type="checkbox" th:id="|id_${grupo}|" th:value="${grupo.codigo}" name="grupo" th:field=*{grupos}/>
+		    					<label th:for="|id_${grupo}|" th:text="${grupo.nome}">Vendedor</label>
 	    					</div>
-	    					
-	    					<div class="checkbox  checkbox-inline"> 
-		    					<input type="checkbox" name="grupo"/>
-		    					<label>Administrador</label>
-	    					</div>
-    				
+    					</th:block>
 					</div>
 				</div>
 			</div>
@@ -72,13 +67,14 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-								<th>
+								<th class="">
 									<brewer:order page="${pagina}" field="nome" text="NOME"></brewer:order>
 								</th>
-								<th>
+								<th class="">
 									<brewer:order page="${pagina}" field="email" text="EMAIL"></brewer:order>
 								</th>
-								<th>STATUS</th>
+								<th class="">GRUPO</th>
+								<th class="">STATUS</th>
 								<th class="table-cervejas-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_USUARIO')"></th>
 						</tr>
 					</thead>
@@ -87,11 +83,15 @@
 						<tr th:each="usuario : ${pagina.conteudo}">
 							
 							
-							<td  th:text="${usuario.nome}">Usuario X</td>
-							<td  th:text="${usuario.email}">Email X</td>
-							<td  th:text="${usuario.ativo}">Status X</td>
+							<td th:text="${usuario.nome}">Usuario X</td>
+							<td th:text="${usuario.email}">Email X</td>
 							
-							<td class="table-cervejas-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_USUARIO')">
+							<td>
+								<span th:each="grupo : ${usuario.grupos}" th:text="|${grupo.nome} ${grupoStat.last ? '' : ', ' }|"></span>
+							</td>
+							<td th:text="${usuario.ativo} ? Ativo : Inativo">Status X</td>
+							
+							<td class="" sec:authorize="hasRole('ROLE_CADASTRAR_USUARIO')">
 								<a class="btn btn-link btn-xs" title="Editar">
 									<i class="glyphicon glyphicon-pencil"></i>
 								</a>
