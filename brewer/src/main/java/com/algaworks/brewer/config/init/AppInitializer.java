@@ -7,6 +7,7 @@ import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration.Dynamic;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.HttpPutFormContentFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.algaworks.brewer.config.JPAConfig;
@@ -42,8 +43,8 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	 */
 	@Override
 	protected Filter[] getServletFilters() {
-		
-		return new Filter[] { };
+		HttpPutFormContentFilter httpPutFormContentFilter = new HttpPutFormContentFilter();
+		return new Filter[] {httpPutFormContentFilter};    				//para que seja permitido envio de parâmetros via PUT no ajax - multoselecao.js
 	}
 	
 	@Override
