@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
@@ -69,9 +70,13 @@ public class UsuariosImpl implements UsuariosQueries {
 	public Page<Usuario> filtrar(UsuarioFilter usuarioFilter, Pageable pageable) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Usuario.class);
 		paginacaoUtil.preparar(criteria, pageable);
-		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+//		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		adicionarFiltro(usuarioFilter, criteria);
-		return new PageImpl<>(criteria.list(), pageable, total(usuarioFilter));
+		
+		List<Usuario> filtrados = criteria.list();
+		filtrados.forEach(u -> Hibernate.initialize(u.getGrupos()));
+		
+		return new PageImpl<>(filtrados, pageable, total(usuarioFilter));
 	}
 	
 	private Long total(UsuarioFilter usuarioFilter) {
@@ -92,7 +97,7 @@ public class UsuariosImpl implements UsuariosQueries {
 				criteria.add(Restrictions.ilike("email", usuarioFilter.getEmail(), MatchMode.START));
 			}
 			
-			criteria.createAlias("grupos", "g", JoinType.LEFT_OUTER_JOIN);
+//			criteria.createAlias("grupos", "g", JoinType.LEFT_OUTER_JOIN);
 			if(usuarioFilter.getGrupos() != null && !usuarioFilter.getGrupos().isEmpty()) {
 				List<Criterion> subqueries = new ArrayList<>();
 				for(Long codigoGrupo : usuarioFilter.getGrupos().stream().mapToLong(Grupo::getCodigo).toArray()) {
