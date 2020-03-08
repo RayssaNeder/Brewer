@@ -13,41 +13,34 @@
 				</div>
 				
 				<div class="modal-body">
-					<div class="alert alert-danger hidden js-mensagem-cadastro-rapido-estilo" role="alert"></div>
+				
+					<div class="alert alert-danger alert-dismissible hidden js-mensagem-erro" role="alert">
+						<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+						<div><i class="fa fa-eclamation-circle"></i>Informe pelo menos 3 letras na pesquisa</div>
+					</div>
 					
-					<form th:action="@{/clientes}">
+					<form class="form" th:action="@{/clientes}">
 						<div class="row">
 							<div class="form-group col-sm-12">
-								<label  class="control-label" for="nomeCliente">Nome</label>							
-								<input id="nomeCliente" type="text" class="form-control" autofocus="autofocus">						
+								<label  class="control-label" for="nomeClienteModal">Nome</label>							
+								<input id="nomeClienteModal" type="text" class="form-control" autofocus="autofocus">						
 							</div>
 						</div>
+						
+						<button type="submit" class="btn btn-primary js-pesquisa-rapida-clientes-btn">Pesquisar</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 					</form>
 					
-					<button type="button" class="btn btn-primary js-modal-cadastro-estilo-salvar-btn">Salvar</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-					
-					<div class="table-responsive bw-tabela-simples">
-						<table class="table table-hover">
-							<thead>
-								<tr>	
-									<th>Nome</th>
-									<th>Telefone</th>
-								</tr>
-							</thead>
-							
-							<tbody>
-								<tr>
-									<td colspan="2">Nenhum Cliente encontrado</td>
-								</tr>
-								
-							</tbody>
-						</table>
+					<div id="containerTabelaPesquisaRapidaClientes">
 					</div>
+					
+					
 					
 				</div>
 			</div>
 		</div>
+		
+		<th:block th:replace="hbs/TabelaPesquisaRapidaClientes"></th:block>
 	</div>
 </body>
 </html>

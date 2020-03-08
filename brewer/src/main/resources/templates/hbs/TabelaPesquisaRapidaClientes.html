@@ -1,0 +1,27 @@
+<script id="tebela-pesquisa-rapida-cliente" type="text/x-handlebars-template">
+	<div class="table-responsive bw-tabela-simples">
+		<table class="table table-hover">
+			<thead>
+				<tr>	
+					<th>Nome</th>
+					<th>Telefone</th>
+				</tr>								
+			</thead>
+							
+			<tbody>
+				{{#if .}}
+					{{#each .}}
+						<tr>
+							<td>{{nome}}</td>
+							<td>{{telefone}}</td>
+						</tr>
+					{{/each}}
+				{{else}}
+					<tr>
+						<td colspan="2">Nenhum Cliente encontrado</td>
+					</tr>
+				{{/if}}								
+			</tbody>
+		</table>						
+	</div>
+</script>

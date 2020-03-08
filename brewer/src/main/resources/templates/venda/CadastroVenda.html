@@ -173,11 +173,14 @@
 		  </form>
 	   </div>
 	   
-	   <div th:replace="cliente/PesquisaRapidaCliente :: modal"></div>
+	   <th:block th:replace="cliente/PesquisaRapidaCliente :: modal"></th:block>
 	   
 	</section>
 	
 	<th:block layout:fragment="javascript-extra">
+		
+		<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
+		<script th:src="@{/javascripts/cliente.pesquisa-rapida.js}"></script>
 		<script>
 			$(function() {
 				$('.js-abas-venda a').click(function (e) {
@@ -187,7 +190,6 @@
 			});
 		</script>
 		
-		<script th:src="@{/javascripts/cliente.pesquisa-rapida.js}"></script>
 	</th:block>
 
 </body>
