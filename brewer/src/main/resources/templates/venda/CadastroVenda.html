@@ -73,9 +73,12 @@
 						<div class="input-group">
 							<input id="nomeCliente" type="text" readonly="readonly" class="form-control" placeholder="Clique na lupa para pesquisar o cliente"/>
 							<span class="input-group-btn">
-						        <button class="btn  btn-default  js-tooltip" type="button" title="Pesquisa avançada">
+						        <button class="btn  btn-default  js-tooltip" type="button"  data-toggle="modal" data-target="#modalPesquisaRapidaCliente"title="Pesquisa avançada">
 						        	<i class="glyphicon  glyphicon-search"></i>
-						        </button>
+						        </button> 
+						        
+						      
+							
 				      		</span>
 						</div>												
 					</div>
@@ -169,6 +172,9 @@
 								
 		  </form>
 	   </div>
+	   
+	   <div th:replace="cliente/PesquisaRapidaCliente :: modal"></div>
+	   
 	</section>
 	
 	<th:block layout:fragment="javascript-extra">
@@ -179,7 +185,9 @@
 					$(this).tab('show');
 				});
 			});
-</script>
+		</script>
+		
+		<script th:src="@{/javascripts/cliente.pesquisa-rapida.js}"></script>
 	</th:block>
 
 </body>

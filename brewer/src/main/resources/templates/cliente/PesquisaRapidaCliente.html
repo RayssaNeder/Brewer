@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div class="modal fade" id="modalPesquisaRapidaCliente" tabindex="-1" role="dialog"  th:fragment="modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">Pesquisa de Clientes</h4>
+				</div>
+				
+				<div class="modal-body">
+					<div class="alert alert-danger hidden js-mensagem-cadastro-rapido-estilo" role="alert"></div>
+					
+					<form th:action="@{/clientes}">
+						<div class="row">
+							<div class="form-group col-sm-12">
+								<label  class="control-label" for="nomeCliente">Nome</label>							
+								<input id="nomeCliente" type="text" class="form-control" autofocus="autofocus">						
+							</div>
+						</div>
+					</form>
+					
+					<button type="button" class="btn btn-primary js-modal-cadastro-estilo-salvar-btn">Salvar</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					
+					<div class="table-responsive bw-tabela-simples">
+						<table class="table table-hover">
+							<thead>
+								<tr>	
+									<th>Nome</th>
+									<th>Telefone</th>
+								</tr>
+							</thead>
+							
+							<tbody>
+								<tr>
+									<td colspan="2">Nenhum Cliente encontrado</td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
