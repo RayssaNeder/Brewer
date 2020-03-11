@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.algaworks.brewer.model.Cliente;
-import com.algaworks.brewer.repository.helper.cerveja.ClientesQueries;
+import com.algaworks.brewer.repository.helper.cliente.ClientesQueries;
 
 
 @Repository

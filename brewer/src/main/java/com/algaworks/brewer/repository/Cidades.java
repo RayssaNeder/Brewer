@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.algaworks.brewer.model.Cidade;
-import com.algaworks.brewer.repository.helper.cerveja.CidadesQueries;
+import com.algaworks.brewer.repository.helper.cidade.CidadesQueries;
 
 @Repository
 public interface Cidades extends JpaRepository<Cidade, Long>, CidadesQueries {
