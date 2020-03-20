@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.algaworks.brewer.model.Cerveja;
+import com.algaworks.brewer.session.TabelaItensVenda;
 
 
 
