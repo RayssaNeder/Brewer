@@ -1,5 +1,7 @@
 package com.algaworks.brewer.controller;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.algaworks.brewer.model.Cerveja;
 import com.algaworks.brewer.repository.Cervejas;
-import com.algaworks.brewer.session.TabelaItensVenda;
+import com.algaworks.brewer.session.TabelasItensSession;
 
 @Controller
 @RequestMapping("/vendas")
@@ -22,42 +24,44 @@ public class VendasController {
 	Cervejas cervejas;
 	
 	@Autowired
-	private TabelaItensVenda tabelaItensVenda;
+	private TabelasItensSession tabelaItens;
 	
 	@RequestMapping("/nova")
-	public String cadastrar() {
-		return "venda/CadastroVenda";
+	public ModelAndView cadastrar() {
+		ModelAndView mv = new ModelAndView("venda/CadastroVenda");
+		mv.addObject("uuid",UUID.randomUUID().toString());
+		return mv;
 	}
 	
 	@PostMapping("/item")
-	public ModelAndView adicionarItem(Long codigoCerveja) {
+	public ModelAndView adicionarItem(Long codigoCerveja, String uuid) {
 		Cerveja cerveja = cervejas.findOne(codigoCerveja);
-		tabelaItensVenda.adicionarItem(cerveja, 1);
-		return mvTabelaItensVenda();
+		tabelaItens.adicionarItem(uuid,cerveja, 1);
+		return mvTabelaItensVenda(uuid);
 	}
 	
 	
 	//obtendo cerveja de forma tradicional
 	
 	@PutMapping("/item/{codigoCerveja}")
-	public ModelAndView alteraQuantidadeItem(@PathVariable Long codigoCerveja, Integer quantidade) {
+	public ModelAndView alteraQuantidadeItem(@PathVariable Long codigoCerveja, Integer quantidade, String uuid) {
 		Cerveja cerveja = cervejas.findOne(codigoCerveja); //
-		tabelaItensVenda.alteraQuantidadeItens(cerveja, quantidade);
-		return mvTabelaItensVenda();
+		tabelaItens.alteraQuantidadeItens(uuid, cerveja, quantidade);
+		return mvTabelaItensVenda(uuid);
 	}
 	
 	//obtendo cerveja usando o poder do jpa de findOne automático. Não precisa do trecho Cerveja cerveja = cervejas.findOne(codigoCerveja); //
 	
-	@DeleteMapping("item/{codigoCerveja}")
-	public ModelAndView excluirCerveja(@PathVariable("codigoCerveja") Cerveja cerveja) {
-		tabelaItensVenda.excluir(cerveja);
-		return mvTabelaItensVenda();
+	@DeleteMapping("item/{uuid}/{codigoCerveja}")
+	public ModelAndView excluirCerveja(@PathVariable("codigoCerveja") Cerveja cerveja, @PathVariable String uuid) {
+		tabelaItens.excluir(uuid,cerveja);
+		return mvTabelaItensVenda(uuid);
 		
 	}
 
-	private ModelAndView mvTabelaItensVenda() {
+	private ModelAndView mvTabelaItensVenda(String uuid) {
 		ModelAndView mv = new ModelAndView("venda/TabelaItensVenda");
-		mv.addObject("itens", tabelaItensVenda.getItens());
+		mv.addObject("itens", tabelaItens.getItens(uuid));
 		return mv;
 	}
 
