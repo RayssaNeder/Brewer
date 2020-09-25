@@ -90,6 +90,10 @@ Brewer.formatarMoeda = function(valor){
 	
 }
 
+Brewer.recuperarValor = function(valorFormatado){
+	numeral.locale('pt-br');
+	return numeral(valorFormatado).value();
+}
 
 
 

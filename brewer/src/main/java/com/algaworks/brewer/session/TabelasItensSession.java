@@ -38,6 +38,10 @@ public class TabelasItensSession {
 		return buscrTabelaPorUuid(uuid).getItens();
 	}
 	
+	public Object getValorTota(String uuid) {
+		return buscrTabelaPorUuid(uuid).getValorTotal();
+	}
+	
 	private TabelaItensVenda buscrTabelaPorUuid(String uuid) {
 		TabelaItensVenda tabela =  tabelas.stream()
 									.filter(t -> t.getUuid().equals(uuid))
@@ -45,4 +49,6 @@ public class TabelasItensSession {
 									.orElse(new TabelaItensVenda(uuid));
 		return tabela;
 	}
+
+
 }
