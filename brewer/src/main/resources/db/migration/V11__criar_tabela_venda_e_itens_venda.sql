@@ -6,8 +6,8 @@ CREATE TABLE venda(
 	valor_total DECIMAL(10, 2) NOT NULL,
 	observacao VARCHAR(200),
 	status VARCHAR(30) NOT NULL,
-	data_entrega DATETIMEL,
-	codigo_itemVenda BIGINT(20),
+	data_hora_entrega DATETIME,
+	codigo_item_venda BIGINT(20),
 	codigo_cliente BIGINT(20),
 	codigo_usuario BIGINT(20),
 	FOREIGN KEY (codigo_cliente) REFERENCES cliente(codigo),
@@ -20,6 +20,6 @@ CREATE TABLE item_venda(
 	valor_unitario DECIMAL(10, 2),
 	codigo_cerveja BIGINT(20),
 	codigo_venda BIGINT(20),
-	FOREIGN KEY (codigo_cerveja) REFERENCES cerveja(codigo) 
-	FOREIGN KEY (codigo_venda) REFERENCES venda(codigo) ,
+	FOREIGN KEY (codigo_cerveja) REFERENCES cerveja(codigo),
+	FOREIGN KEY (codigo_venda) REFERENCES venda(codigo)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;

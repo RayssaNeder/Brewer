@@ -14,7 +14,7 @@ Brewer.Venda = (function(){
 	
 	Venda.prototype.iniciar = function(){
 		this.tabelaItens.on('tabela-itens-atualizada', onTabelaItensAtualizada.bind(this));
-		this.valorFreteInput.on('keyup',onValorFreteAlterado.bind(this));
+		this.valorFreteInput.on('keyup', onValorFreteAlterado.bind(this));
 		this.valorDescontoInput.on('keyup', onValorDescontoAlterado.bind(this))
 		
 		this.tabelaItens.on('tabela-itens-atualizada', onValoresAlterados.bind(this));
@@ -24,7 +24,7 @@ Brewer.Venda = (function(){
 	}
 	
 	function onTabelaItensAtualizada(evento, valorTotalItens){
-		this.valorTotalItens == null ? 0 : valorTotalItens;
+		this.valorTotalItens = valorTotalItens == null ? 0 : valorTotalItens;
 	}
 	
 	function onValorFreteAlterado(evento){
@@ -36,9 +36,8 @@ Brewer.Venda = (function(){
 	}
 	
 	function onValoresAlterados(){
-		var valorTotal = this.valorTotalItens + this.valorFrete - this.valorDesconto;
+		var valorTotal = parseFloat(this.valorTotalItens) + parseFloat(this.valorFrete) - parseFloat(this.valorDesconto);
 		this.valorTotalBox.html(Brewer.formatarMoeda(valorTotal));
-		
 		this.valorTotalBoxContainer.toggleClass('negativo', valorTotal < 0);
 		
 	}

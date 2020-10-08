@@ -26,6 +26,7 @@ public class ItemVenda {
 	@JoinColumn(name = "codigo_cerveja")
 	private Cerveja cerveja;
 	@ManyToOne
+	@JoinColumn(name = "codigo_venda")
 	private Venda venda;
 	
 	public BigDecimal getValorTotal() {

@@ -2,17 +2,24 @@ package com.algaworks.brewer.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 public class Venda implements Serializable {
@@ -23,30 +30,58 @@ public class Venda implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-	private LocalDateTime dataCriação;
+	@Column(name = "data_criacao")
+	private LocalDateTime dataCriacao;
+	@Column(name = "valor_frete")
 	private BigDecimal valorFrete;
+	@Column(name = "valor_desconto")
 	private BigDecimal valorDesconto;
+	@Column(name = "valor_total")
 	private BigDecimal valorTotal;
 	private String observacao;
-	private LocalDateTime dataEntrega;
+	@Column(name = "data_hora_entrega ")
+	private LocalDateTime dataHoraEntrega;
 	@Enumerated(EnumType.STRING)
-	private Status status;
-	@OneToMany(mappedBy = "venda")
-	private List<ItemVenda> itensVenda = new ArrayList<ItemVenda>();
+	private Status status = Status.ORCAMENTO;
+	@OneToMany(mappedBy = "venda", cascade = CascadeType.ALL)
+	private List<ItemVenda> itensVenda;
 	
+	@ManyToOne
+	@JoinColumn(name = "codigo_cliente")
+	private Cliente cliente;
 
+	@ManyToOne
+	@JoinColumn(name = "codigo_usuario")
+	private Usuario usuario;
 	
+	
+	@Transient
+	private String uuid;
+	
+	@Transient
+	private LocalDate dataEntrega;
+	
+	@Transient
+	private LocalTime horaEntrega;
+	
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 	public Long getCodigo() {
 		return codigo;
 	}
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
-	public LocalDateTime getDataCriação() {
-		return dataCriação;
+	
+	public LocalDateTime getDataCriacao() {
+		return dataCriacao;
 	}
-	public void setDataCriação(LocalDateTime dataCriação) {
-		this.dataCriação = dataCriação;
+	public void setDataCriacao(LocalDateTime dataCriacao) {
+		this.dataCriacao = dataCriacao;
 	}
 	public BigDecimal getValorFrete() {
 		return valorFrete;
@@ -72,11 +107,12 @@ public class Venda implements Serializable {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-	public LocalDateTime getDataEntrega() {
-		return dataEntrega;
+	
+	public LocalDateTime getDataHoraEntrega() {
+		return dataHoraEntrega;
 	}
-	public void setDataEntrega(LocalDateTime dataEntrega) {
-		this.dataEntrega = dataEntrega;
+	public void setDataHoraEntrega(LocalDateTime dataHoraEntrega) {
+		this.dataHoraEntrega = dataHoraEntrega;
 	}
 	public List<ItemVenda> getItensVenda() {
 		return itensVenda;
@@ -90,6 +126,44 @@ public class Venda implements Serializable {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+	
+	public LocalDate getDataEntrega() {
+		return dataEntrega;
+	}
+	public void setDataEntrega(LocalDate dataEntrega) {
+		this.dataEntrega = dataEntrega;
+	}
+	public LocalTime getHoraEntrega() {
+		return horaEntrega;
+	}
+	public void setHoraEntrega(LocalTime horaEntrega) {
+		this.horaEntrega = horaEntrega;
+	}
+	
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+	
+	public boolean isNova() {
+		return this.codigo == null;
+	}
+	
+	
+	public void adicionarItens(List<ItemVenda> itens) {
+		this.itensVenda = itens;
+		this.itensVenda.forEach(i -> i.setVenda(this));
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

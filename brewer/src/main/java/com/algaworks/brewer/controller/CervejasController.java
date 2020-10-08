@@ -42,7 +42,7 @@ public class CervejasController {
 	@Autowired
 	private Cervejas cervejas;
 
-	@RequestMapping("novo")
+	@GetMapping("novo")
 	public ModelAndView novo(Cerveja cerveja) {
 		ModelAndView mv = new ModelAndView("cerveja/CadastroCerveja");
 		
