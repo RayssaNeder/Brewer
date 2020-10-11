@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -33,18 +34,18 @@ public class Venda implements Serializable {
 	@Column(name = "data_criacao")
 	private LocalDateTime dataCriacao;
 	@Column(name = "valor_frete")
-	private BigDecimal valorFrete;
+	private BigDecimal valorFrete = BigDecimal.ZERO ;
 	@Column(name = "valor_desconto")
-	private BigDecimal valorDesconto;
+	private BigDecimal valorDesconto = BigDecimal.ZERO;
 	@Column(name = "valor_total")
-	private BigDecimal valorTotal;
+	private BigDecimal valorTotal = BigDecimal.ZERO;
 	private String observacao;
 	@Column(name = "data_hora_entrega ")
 	private LocalDateTime dataHoraEntrega;
 	@Enumerated(EnumType.STRING)
 	private Status status = Status.ORCAMENTO;
 	@OneToMany(mappedBy = "venda", cascade = CascadeType.ALL)
-	private List<ItemVenda> itensVenda;
+	private List<ItemVenda> itensVenda = new ArrayList<>();
 	
 	@ManyToOne
 	@JoinColumn(name = "codigo_cliente")
@@ -63,6 +64,23 @@ public class Venda implements Serializable {
 	
 	@Transient
 	private LocalTime horaEntrega;
+	
+	
+	public void calcularValorTotal() {
+		BigDecimal valorTotalItens = getItensVenda().stream()
+				.map(ItemVenda::getValorTotal)
+				.reduce(BigDecimal::add)
+				.orElse(BigDecimal.ZERO);
+		
+		this.valorTotal = calcularValorTotal(valorTotalItens, getValorFrete(), getValorDesconto());
+	}
+	
+	private BigDecimal calcularValorTotal(BigDecimal valorTotalItens, BigDecimal valorFrete, BigDecimal valorDesconto) {
+		BigDecimal valorTotal = valorTotalItens
+				.add(Optional.ofNullable(valorFrete).orElse(BigDecimal.ZERO))
+				.subtract(Optional.ofNullable(valorDesconto).orElse(BigDecimal.ZERO));
+		return valorTotal;
+	}
 	
 	public String getUuid() {
 		return uuid;
