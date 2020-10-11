@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.algaworks.brewer.model.Status;
 import com.algaworks.brewer.model.Venda;
 import com.algaworks.brewer.repository.Vendas;
 
@@ -29,6 +30,14 @@ public class CadastroVendaService {
 		}
 		
 		vendasRepository.save(venda);
+	}
+
+
+	@Transactional
+	public void emitir(Venda venda) {
+		venda.setStatus(Status.EMITIDA);
+		salvar(venda);
+		
 	}
 
 	
