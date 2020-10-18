@@ -55,10 +55,10 @@ public class VendasController {
 	private Vendas vendas;
 	
 	
-/*	@InitBinder
+	@InitBinder("venda")
 	public void inicializarValidador(WebDataBinder binder) {
 		binder.setValidator(vendaValidator);
-	}*/
+	}
 	
 	@GetMapping("/nova")
 	public ModelAndView cadastrar(Venda venda) {
