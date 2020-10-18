@@ -16,6 +16,7 @@ Brewer.MaskMoney = (function(){
 	return MaskMoney;
 }()) ;
 
+
 Brewer.MaskPhoneNumber = (function(){
 	function MaskPhoneNumber(){
 		this.inputPhoneNumber = $('.js-phone-number');

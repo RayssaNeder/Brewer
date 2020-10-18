@@ -2,9 +2,11 @@ package com.algaworks.brewer.controller;
 
 import java.util.UUID;
 
-import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -17,14 +19,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.algaworks.brewer.controller.page.PageWrapper;
 import com.algaworks.brewer.controller.validator.VendaValidator;
 import com.algaworks.brewer.model.Cerveja;
+import com.algaworks.brewer.model.Status;
 import com.algaworks.brewer.model.Venda;
 import com.algaworks.brewer.repository.Cervejas;
+import com.algaworks.brewer.repository.Vendas;
+import com.algaworks.brewer.repository.filter.VendaFilter;
 import com.algaworks.brewer.security.UsuarioSistema;
 import com.algaworks.brewer.service.CadastroVendaService;
 import com.algaworks.brewer.session.TabelasItensSession;
@@ -46,10 +51,14 @@ public class VendasController {
 	private VendaValidator vendaValidator;
 	
 	
-	@InitBinder
+	@Autowired
+	private Vendas vendas;
+	
+	
+/*	@InitBinder
 	public void inicializarValidador(WebDataBinder binder) {
 		binder.setValidator(vendaValidator);
-	}
+	}*/
 	
 	@GetMapping("/nova")
 	public ModelAndView cadastrar(Venda venda) {
@@ -148,5 +157,20 @@ public class VendasController {
 		mv.addObject("valorTotal",tabelaItens.getValorTota(uuid));
 		return mv;
 	}
+	
+	@GetMapping
+	public ModelAndView pesquisar(VendaFilter vendaFilter, BindingResult result, @PageableDefault(size = 3) Pageable pageable, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("venda/PesquisaVenda");
+		mv.addObject("status", Status.values());
+		
+		System.out.println(">>> pageNummber " + pageable.getPageNumber());
+		System.out.println((">>> total de paginas " + pageable.getPageSize()));
+		
+		
+		PageWrapper<Venda> paginaWraper = new PageWrapper<>(vendas.filtrar(vendaFilter, pageable), request);
+		mv.addObject("pagina", paginaWraper);
+		return mv;
+		
+	} 
 
 }
